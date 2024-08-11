@@ -16,8 +16,11 @@ import { FilterTools } from "./FilterTools";
 import { cn, isoToDate, timeAgo } from "@/lib/utils";
 import { buttonVariants } from "../ui/button";
 import Link from "next/link";
+import { ProductOverView } from "../ProductOverview";
+import axios from "axios";
 
 export const ListModelData = ({ modelSlug }: any) => {
+  const [graphData, setGraphData] = useState([]);
   const [searchQuery, setSearchQuery] = useState(
     `&sortby=desc&sortfield=${
       allModels.find((model) => model.model === modelSlug)?.searchConfig
@@ -32,10 +35,20 @@ export const ListModelData = ({ modelSlug }: any) => {
   const [loading, setLoading] = useState(true);
   const [model, setModel] = useState<any>({});
 
-  console.log({ data });
+  useEffect(() => {
+    axios
+      .get(`/api/v1/productgraph`)
+      .then((res) => {
+        setGraphData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [data]);
+  
+  // console.log({ data });
 
   useEffect(() => {
-    console.log();
     setModel(allModels.find((model) => model.model === modelSlug));
 
     const fields = model.searchConfig?.searchFields;
@@ -121,6 +134,12 @@ export const ListModelData = ({ modelSlug }: any) => {
                 Quantity
               </TableHead>
               <TableHead className="py-3 px-4 text-right text-sm font-medium">
+                Sale Count
+              </TableHead>
+              <TableHead className="py-3 px-4 text-right text-sm font-medium">
+                Total Sales
+              </TableHead>
+              <TableHead className="py-3 px-4 text-right text-sm font-medium">
                 CreatedAt
               </TableHead>
               <TableHead className="py-3 px-4 text-right text-sm font-medium">
@@ -142,6 +161,12 @@ export const ListModelData = ({ modelSlug }: any) => {
                   <TableCell className="py-4 px-4">{item.price}</TableCell>
                   <TableCell className="py-4 px-4 text-right">
                     {item.quantity}
+                  </TableCell>
+                  <TableCell className="py-4 px-4 text-right">
+                    {item.salesIndex}
+                  </TableCell>
+                  <TableCell className="py-4 px-4 text-right">
+                    {item.TotalSales}
                   </TableCell>
                   <TableCell className="py-4 px-4 text-right">
                     {isoToDate(item.createdAt)}
@@ -182,6 +207,9 @@ export const ListModelData = ({ modelSlug }: any) => {
             ))}
           </TableBody>
         </Table>
+      </div>
+      <div className="mt-6">
+        <ProductOverView data={graphData}/>
       </div>
       <div className="mt-6">
         {isLoading && (

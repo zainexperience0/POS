@@ -170,25 +170,44 @@ export const EditOrderField = ({ model, id, callbackFn }: any) => {
         setFailed(true);
       });
   };
-
-  const handleOrderItemChange = (productId: string, quantity: number) => {
+  
+  const handleOrderItemChange = (productId: string, newQuantity: number) => {
     setOrderItems((prevItems: any[]) => {
       const product = products.find((p: any) => p.id === productId);
       if (!product) return prevItems;
-
+  
       const productCurrentQuantity = parseInt(product.quantity) || 0;
       const currentItemIndex = prevItems.findIndex(
         (item: any) => item.productId === productId
       );
-
+  
+      // Check if new quantity is less than zero
+      if (newQuantity < 0) {
+        alert("Quantity cannot be less than zero.");
+        return prevItems;
+      }
+  
+      // Check if the product is out of stock
+      if (productCurrentQuantity === 0) {
+        alert("This product is currently out of stock.");
+        return prevItems;
+      }
+  
+      // Check if new quantity is greater than current available quantity
+      if (newQuantity > productCurrentQuantity) {
+        alert("Quantity exceeds available stock.");
+        return prevItems;
+      }
+  
       if (currentItemIndex >= 0) {
         const currentQuantity = prevItems[currentItemIndex].quantity;
-        const quantityDifference = quantity - currentQuantity;
-
+        const quantityDifference = newQuantity - currentQuantity;
+  
+        // Check if the change would result in a negative available stock
         if (productCurrentQuantity >= quantityDifference) {
           const updatedItems = [...prevItems];
-          updatedItems[currentItemIndex].quantity = quantity;
-
+          updatedItems[currentItemIndex].quantity = newQuantity;
+  
           setProducts((prevProducts: any[]) =>
             prevProducts.map((p: any) =>
               p.id === productId
@@ -199,27 +218,27 @@ export const EditOrderField = ({ model, id, callbackFn }: any) => {
                 : p
             )
           );
-
+  
           return updatedItems;
         } else {
           alert("Not enough stock available.");
           return prevItems;
         }
       } else {
-        if (productCurrentQuantity >= quantity) {
+        if (productCurrentQuantity >= newQuantity) {
           setProducts((prevProducts: any[]) =>
             prevProducts.map((p: any) =>
               p.id === productId
-                ? { ...p, quantity: productCurrentQuantity - quantity }
+                ? { ...p, quantity: productCurrentQuantity - newQuantity }
                 : p
             )
           );
-
+  
           return [
             ...prevItems,
             {
               productId,
-              quantity,
+              quantity: newQuantity,
               name: product.name,
               price: product.price,
             },

@@ -23,8 +23,12 @@ import { cn, isoToDate, timeAgo } from "@/lib/utils";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { FilterTools } from "../FilterTools";
+import axios from "axios";
+import { Analytics } from "./Analytics";
+
 
 export const ListOrderData = ({ modelSlug }: any) => {
+    const [graphData, setGraphData] = useState([]);
   const [searchQuery, setSearchQuery] = useState(
     `&sortby=desc&sortfield=${
       allModels.find((model) => model.model === modelSlug)?.searchConfig
@@ -60,6 +64,21 @@ export const ListOrderData = ({ modelSlug }: any) => {
     );
     setLoading(false);
   }, [modelSlug]);
+
+  useEffect(() => {
+    axios
+      .get(`/api/v1/ordergraph`)
+      .then((resp: any) => {
+        setGraphData(resp.data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  }, [isLoading]);
+
+  // console.log({graphData});
+  
 
   if (!model) {
     return (
@@ -203,6 +222,9 @@ export const ListOrderData = ({ modelSlug }: any) => {
         <h1 className="text-right text-muted-foreground text-xl font-extrabold">
           Total Sales: {totalSales}$
         </h1>
+      </div>
+      <div className="mt-6">
+        <Analytics data={graphData} />
       </div>
       <div className="mt-6">
         {isLoading && (

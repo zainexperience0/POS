@@ -155,7 +155,7 @@ export async function POST(req: NextRequest, params: any) {
     );
   }
 
-  console.log(JSON.stringify(data_2));
+  // console.log(JSON.stringify(data_2));
 
   //@ts-ignore
   const data = await prismaInstance[model_name].create({ data: data_2 });
@@ -201,6 +201,7 @@ export async function PUT(req: NextRequest, params: any) {
       { status: 404 }
     );
   }
+console.log(JSON.stringify(data_2));
 
   //@ts-ignore
   const data = await prismaInstance[model_name].update({

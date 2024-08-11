@@ -82,6 +82,46 @@ export const allModels = [
         },
       },
       {
+        name: "salesIndex",
+        slug: "salesIndex",
+        type: "numberInput",
+        defaultValue: 0,
+        required: false,
+        dataType: "string",
+        customClassName: "",
+        backend: [
+          "findFirst",
+          "findUnique",
+          "findMany",
+          "update",
+          "delete",
+        ],
+        frontend: [],
+        valueGetter: () => {
+          return 0;
+        },
+      },
+      {
+        name: "TotalSales",
+        slug: "TotalSales",
+        type: "numberInput",
+        defaultValue: 0,
+        required: false,
+        dataType: "string",
+        customClassName: "",
+        backend: [
+          "findFirst",
+          "findUnique",
+          "findMany",
+          "update",
+          "delete",
+        ],
+        frontend: [],
+        valueGetter: () => {
+          return 0;
+        },
+      },
+      {
         name: "Quantity",
         slug: "quantity",
         type: "numberInput",

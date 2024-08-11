@@ -26,7 +26,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useReactToPrint } from "react-to-print";
-import BarCode  from "react-barcode";
+import BarCode from "react-barcode";
 export const ViewOrderField = ({ modelSlug, id }: any) => {
   const [data, setData] = useState<any>({});
   const [model, setModel] = useState<any>({});
@@ -38,7 +38,6 @@ export const ViewOrderField = ({ modelSlug, id }: any) => {
   });
 
   const receiptRef = useRef<HTMLDivElement | null>(null);
-  
 
   useEffect(() => {
     setModel(allModels.find((model: any) => model.model === modelSlug));
