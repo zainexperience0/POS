@@ -120,12 +120,11 @@ export const ListOrderData = ({ modelSlug }: any) => {
           </div>
           <div className="flex justify-between mb-4">
             <Link
-              href={`/${prePath}/${modelSlug}/analytics`}
+              href={`/${prePath}/product`}
               className={buttonVariants({ variant: "default", size: "sm" })}
             >
               <BarChart2 className="h-5 w-5" />
-              Analytics
-            </Link>
+              Products            </Link>
             <Link
               href={`/${prePath}/${modelSlug}/create`}
               className={buttonVariants({ variant: "default", size: "sm" })}

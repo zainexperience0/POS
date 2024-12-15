@@ -3,7 +3,6 @@ import { CreateField } from "@/components/models/createField";
 import { DeleteField } from "@/components/models/DeleteField";
 import { EditField } from "@/components/models/EditField";
 import { ListModelData } from "@/components/models/listModelData";
-import { Analytics } from "@/components/models/order/Analytics";
 import { CreateOrderField } from "@/components/models/order/Create";
 import { EditOrderField } from "@/components/models/order/Edit";
 import { ListOrderData } from "@/components/models/order/List";

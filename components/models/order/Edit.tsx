@@ -35,7 +35,6 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Input } from "@/components/ui/input";
 import Barcode from "react-barcode";
 
 export const EditOrderField = ({ model, id, callbackFn }: any) => {
