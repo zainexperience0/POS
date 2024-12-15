@@ -77,7 +77,7 @@ const DynamicPage = ({ params, searchParams }: any) => {
         {model === "product" && <ListModelData modelSlug={model} />}
         {model === "order" && <ListOrderData modelSlug={model} />}
         <p className="text-center mb-0 text-muted-foreground">
-          Designed by Arloodots Software House. ©All rights reserved 2024.
+          Designed by NIT-Services. ©All rights reserved 2024.
         </p>
       </div>
     );

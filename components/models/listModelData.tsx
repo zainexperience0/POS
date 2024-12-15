@@ -14,7 +14,7 @@ import { ArrowRight, Loader, Pencil, Plus, Trash } from "lucide-react";
 import useInfiniteQuery from "@/lib/hooks/useQuery";
 import { FilterTools } from "./FilterTools";
 import { cn, isoToDate, timeAgo } from "@/lib/utils";
-import { buttonVariants } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
 import Link from "next/link";
 import { ProductOverView } from "../ProductOverview";
 import axios from "axios";
@@ -103,12 +103,17 @@ export const ListModelData = ({ modelSlug }: any) => {
             </h1>
             <FilterTools model={model} setSearchQuery={setSearchQuery} />
           </div>
-          <div className="flex justify-end mb-4">
+          <div className="flex justify-end mb-4 gap-x-2 items-center">
             <Link
               href={`/${prePath}/${modelSlug}/create`}
               className={buttonVariants({ variant: "default", size: "sm" })}
             >
               <Plus className="h-5 w-5" />
+            </Link>
+            <Link href={`/${prePath}/order`}>
+              <Button variant={"default"}>
+                Order
+              </Button>
             </Link>
           </div>
         </>
